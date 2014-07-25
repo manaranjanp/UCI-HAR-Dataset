@@ -1,6 +1,3 @@
-Getting and Cleaning Data
-========================================================
-
 ## Project Details
 
 This project is about creating a tidy dataset from the original raw dataset available at 
@@ -42,7 +39,7 @@ The project contains the following files
 
         > source( "run_analysis.R")
         > finaldataset <- prepareTidyDataSet()
-    
+        
   The script outputs following messages to the console during successful execution
 
         Loading the train dataset...
@@ -55,9 +52,9 @@ The project contains the following files
         Processing complete and following two files are created
          - UCI-HAR-Dataset-Tidy.txt - Final tidy data set
 
-6. Once executed successfully, the script create the following  Final tidy data set
+6. Once executed successfully, it returns the data.frame which contains the final tidy dataset. The script also stores the final dataset in the following file in your current working directory. 
 
    __UCI-HAR-Dataset-Tidy.txt__
    
-   The output file is in csv format. And the variables are explained in the Codebook.md file.
+   The output file is in csv format. The variables are explained in the [Codebook.md](https://github.com/manaranjanp/UCI-HAR-Dataset/blob/master/Codebook.md) file.
   

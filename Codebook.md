@@ -1,17 +1,15 @@
-Codebook for the final tidy dataset created.
-========================================================
 This document provides details about the variables stored in the final tidy 
 data set and workings of the script.
 
 ## Description of Variables in the Final Tidy dataset
 
-Following are the variables in the final tidy dataset stored in UCI-HAR-Dataset-Tidy.txt
+Following are the variables in the final tidy dataset stored in UCI-HAR-Dataset-Tidy.txt, which is the final output of the script
 
-* subjectid  - integer 
+* __subjectid__  - integer 
 
   subjectid is the id of the volunteers for this experiment.
 
-* activity   - character
+* __activity__   - character
 
   Is one of the following activities that was monitored for recording accelerometer parameters
   
@@ -22,9 +20,9 @@ Following are the variables in the final tidy dataset stored in UCI-HAR-Dataset-
   + WALKING_DOWNSTAIRS
   + WALKING_UPSTAIRS
 
-* Mean value of observed measurements of mean and standard deviations ( Column 3 thorugh 81 )
+* __Mean value of observed measurements of mean and standard deviations__ ( Column 3 thorugh 81 ) - numeric
  
- Are the average values of selected measurements of mean and standard deviation of the features  recorded from accelerometers of samsung phones of the volunteers.
+ Are the average values of selected measurements of mean and standard deviation of the features  recorded from accelerometers of samsung phones of the volunteers. Following is the _list of the variables from column 3 through 81_, in that order.
 ```
 AvgOf_tBodyAcc_Mean_X        	-  Mean value of tBodyAcc_Mean_X
 AvgOf_tBodyAcc_Mean_Y		-  Mean value of tBodyAcc_Mean_Y
@@ -109,8 +107,20 @@ AvgOf_fBodyBodyGyroJerkMag_MeanFreq		-  Mean value of fBodyBodyGyroJerkMag_MeanF
 
 ## Explaining run_analysis.R Script
 
+### prepareTidyDataSet()
 
-1. **readUCIFile()** is a function, whih can read files from a zip file
+This is the main function, which invokes other to accomplish clean up of existing datasets and prepare and write the the final tidy dataset to a file.
+
+```
+        totalX <- cleanAndMergeDatasets();
+        tidyset <- calculateAverages( totalX )
+        writeTidyDataToFile( tidyset, "UCI-HAR-Dataset-Tidy.txt" )
+```
+
+### readUCIFile() 
+
+This function reads the file from a zip file. It expect the filename as input and returns the data.frame
+
 ```
         UCIDataFile <- "getdata-projectfiles-UCI HAR Dataset.zip";
         
@@ -121,8 +131,9 @@ AvgOf_fBodyBodyGyroJerkMag_MeanFreq		-  Mean value of fBodyBodyGyroJerkMag_MeanF
         }
 ```
 
-2. **cleanAndMergeDatasets()** reads train and test datasets and also read the activity labels and
-featurs list.Cleans the datasets and merges the datasets to create one dataset. Also, assigns the column names to the final dataset
+### cleanAndMergeDatasets() 
+
+This function reads train, test datasets, activity labels and features list. Then cleans and merges the datasets to create one final dataset. Also assigns the column names in the final dataset. Following is the step by step explanation of this function.
 
 + Reads the following data files required for the project
 ```
@@ -138,8 +149,9 @@ featurs list.Cleans the datasets and merges the datasets to create one dataset. 
         
         colnamesX <- readUCIFile( "UCI HAR Dataset/features.txt")
         activityLabels <- readUCIFile( "UCI HAR Dataset/activity_labels.txt")        
-```     
-+ Sets the column names in train and test subjectid labes files as _subjectid_ and naming the columns in activity labels as _activityid_ and _activity_
+```  
+
++ Sets the column names subjectid labels files as _subjectid_ and naming the columns in activity labels as _activityid_ and _activity_
 ```
         colnames( trainSubject ) <- c( "subjectid" )
         colnames( testSubject ) <- c( "subjectid" )
@@ -148,7 +160,7 @@ featurs list.Cleans the datasets and merges the datasets to create one dataset. 
         colnames( testY ) <- c( "activityid" )        
 ```
 
-+ Joining the files in trainY and testY activity labels to the actual activity names like WALKING, SITTING etc.
++ Mapping activity ids in trainY and testY to the actual activity names like WALKING, SITTING etc.
 ```
         trainY <- join( trainY, activityLabels, by = c( "activityid" ) )
         testY <- join( testY, activityLabels, by = c( "activityid" ) )
@@ -183,7 +195,9 @@ Adding the testY activity labels and test subject ids as columns to the testX
         totalX <- rbind( trainX, testX ) 
 ```
 
-3. **calculateAverages()** - Calculates the average values of all the measurements (columns) in the dataset passed
+### calculateAverages()
+
+This function calculates the average values of all the measurements 
 
 + As the purpose of the project is to focus on the observations of mean and standard deviations, it creates a subset of data that represents only those features
 ```
@@ -207,22 +221,14 @@ Adding the testY activity labels and test subject ids as columns to the testX
         colnames( meanOfTidyset )[3:81] <- paste( "AvgOf"
                                          , colnames( meanOfTidyset )[3:81]
                                          , sep = "_" )
-```   
-
-4. **writeToFile()** writes the tidy dataset to a file.
-
-```
-       write.table( meanOfTidyset
-                   , file = "UCI-HAR-Dataset-Tidy.txt"
-                   , sep = ","
-                   , col.names = TRUE
-                   , row.names = FALSE )        
 ```
 
-5. **prepareTidyDataSet()** is the main method which invokes other methods to complete processing of datasets, prepares the final tidy dataset and finally writes to a file.
+
+### writeToFile()
+
+This function writes the tidy dataset in csv format to the filename passed to it
 
 ```
-       totalX <- cleanAndMergeDatasets();
-        tidyset <- calculateAverages( totalX )
-        writeTidyDataToFile( tidyset, "UCI-HAR-Dataset-Tidy.txt" )
+        write.table( tidyset, file = filename, sep = ","
+                   , col.names = TRUE, row.names = FALSE )
 ```

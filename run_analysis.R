@@ -150,4 +150,5 @@ prepareTidyDataSet <- function()
         totalX <- cleanAndMergeDatasets();
         tidyset <- calculateAverages( totalX )
         writeToFile( tidyset, "UCI-HAR-Dataset-Tidy.txt" )
+        tidyset
 }
