@@ -15,7 +15,7 @@ The project contains the following files
 ## To run the script
 1. Download and store the [zip file](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) into to a directory.
 
-2. Untar the zip file into a directory. After unzip and go the the subdirectory which contain the following subdirectories and files.
+2. Untar the zip file into a directory. After unzip, go the the directory which contain the following subdirectories and data files.
 
         + train/X_train.txt - Train datasets with features observations 
         + train/y_train.txt - Activity labels for train datasets
