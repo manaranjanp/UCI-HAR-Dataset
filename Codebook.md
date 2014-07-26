@@ -117,38 +117,24 @@ This is the main function, which invokes other to accomplish clean up of existin
         writeTidyDataToFile( tidyset, "UCI-HAR-Dataset-Tidy.txt" )
 ```
 
-### readUCIFile() 
-
-This function reads the file from a zip file. It expect the filename as input and returns the data.frame
-
-```
-        UCIDataFile <- "getdata-projectfiles-UCI HAR Dataset.zip";
-        
-        readUCIFile <- function( file )
-        {
-                ucifile <- read.table(unz( UCIDataFile, file ),  sep = "" )
-                ucifile
-        }
-```
-
 ### cleanAndMergeDatasets() 
 
 This function reads train, test datasets, activity labels and features list. Then cleans and merges the datasets to create one final dataset. Also assigns the column names in the final dataset. Following is the step by step explanation of this function.
 
 + Reads the following data files required for the project
 ```
-        trainX <- readUCIFile( "UCI HAR Dataset/train/X_train.txt")
-        trainY <- readUCIFile( "UCI HAR Dataset/train/y_train.txt")
+        trainX <- readUCIFile( "train/X_train.txt")
+        trainY <- readUCIFile( "train/y_train.txt")
 
-        testX <- readUCIFile( "UCI HAR Dataset/test/X_test.txt")
-        testY <- readUCIFile( "UCI HAR Dataset/test/y_test.txt")
+        testX <- readUCIFile( "test/X_test.txt")
+        testY <- readUCIFile( "test/y_test.txt")
         
         
-        trainSubject <- readUCIFile( "UCI HAR Dataset/train/subject_train.txt")
-        testSubject <- readUCIFile( "UCI HAR Dataset/test/subject_test.txt")
+        trainSubject <- readUCIFile( "train/subject_train.txt")
+        testSubject <- readUCIFile( "test/subject_test.txt")
         
-        colnamesX <- readUCIFile( "UCI HAR Dataset/features.txt")
-        activityLabels <- readUCIFile( "UCI HAR Dataset/activity_labels.txt")        
+        colnamesX <- readUCIFile( "features.txt")
+        activityLabels <- readUCIFile( "activity_labels.txt")        
 ```  
 
 + Sets the column names subjectid labels files as _subjectid_ and naming the columns in activity labels as _activityid_ and _activity_
@@ -199,7 +185,7 @@ Adding the testY activity labels and test subject ids as columns to the testX
 
 This function calculates the average values of all the measurements 
 
-+ As the purpose of the project is to focus on the observations of mean and standard deviations, it creates a subset of data that represents only those features
++ As the purpose of the project is to focus on the observations of mean and standard deviations, it creates a subset of data that represents only those features. It selects all columns that has _Mean_ and _Std_ in the column name.
 ```
         npattern = "_Mean|Std"
         tidyset <- totalX[ c( "subjectid", "activity"

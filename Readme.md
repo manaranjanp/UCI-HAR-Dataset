@@ -5,16 +5,6 @@ This project is about creating a tidy dataset from the original raw dataset avai
 [https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 
 The dataset contains data collected from the *accelerometers* from the *Samsung Galaxy S smartphone*. 
-* Following datasets in the zip file is used to create the final tidy dataset.
-
-        + UCI HAR Dataset/train/X_train.txt - Train datasets with features observations 
-        + UCI HAR Dataset/train/y_train.txt - Activity labels for train datasets
-        + UCI HAR Dataset/test/X_test.txt - Train datasets with features observations
-        + UCI HAR Dataset/test/y_test.txt - Activity lables for test datasets
-        + UCI HAR Dataset/train/subject_train.txt - subject id for the train data set
-        + UCI HAR Dataset/test/subject_test.txt - subject id for the test data set
-        + UCI HAR Dataset/features.txt - features for which observations were noted
-        + UCI HAR Dataset/activity_labels.txt - activity labels
 
 The project contains the following files
 
@@ -25,11 +15,22 @@ The project contains the following files
 ## To run the script
 1. Download and store the [zip file](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) into to a directory.
 
-2. Set the above directory as the current working directory of R environment. This can be done by using setwd()
+2. Untar the zip file into a directory. After unzip and go the the subdirectory which contain the following subdirectories and files.
 
-        e.g. setwd( "G:\\Work\\Coursera\\GetCleanData" )
+        + train/X_train.txt - Train datasets with features observations 
+        + train/y_train.txt - Activity labels for train datasets
+        + test/X_test.txt - Train datasets with features observations
+        + test/y_test.txt - Activity lables for test datasets
+        + train/subject_train.txt - subject id for the train data set
+        + test/subject_test.txt - subject id for the test data set
+        + features.txt - features for which observations were noted
+        + activity_labels.txt - activity labels
 
-3. Download and store the script **run_analysis.R** in your current working directory
+2. Set the above directory (under which the above datasets are available) as the current working directory of R environment. This can be done by using setwd()
+
+        e.g. setwd( "G:\\GetCleanData\\getdata-projectfiles-UCI HAR Dataset\\UCI HAR Dataset" )
+
+3. Download and copy the script **run_analysis.R** in your current working directory
 
 4. Install the package **plyr** in your R environment, if it is not already installed.
 
@@ -51,6 +52,8 @@ The project contains the following files
         Calculating mean values of selected measurements...
         Processing complete and following two files are created
          - UCI-HAR-Dataset-Tidy.txt - Final tidy data set
+   
+   It also returns a data.frame which contains the tidy data set.                 
 
 6. Once executed successfully, it returns the data.frame which contains the final tidy dataset. The script also stores the final dataset in the following file in your current working directory. 
 

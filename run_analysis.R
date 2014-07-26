@@ -2,16 +2,6 @@ library( plyr )
 
 # pointing to the zipped Dataset 
 ## It assumes the zip dataset in the current working directory
-UCIDataFile <- "getdata-projectfiles-UCI HAR Dataset.zip";
-
-# The function reads a file from a zip file
-# Expects the filename with the path inside the zip file
-# reads the data files and returns the data.frame
-readUCIFile <- function( file )
-{
-        ucifile <- read.table(unz( UCIDataFile, file ),  sep = "" )
-        ucifile
-}
 
 # Reads train and test datasets and also read the activity labels and
 # featurs list.
@@ -26,24 +16,24 @@ cleanAndMergeDatasets <- function()
         message( "Loading the train dataset...")
         
         # Read train data set - activity observations and activity labels
-        trainX <- readUCIFile( "UCI HAR Dataset/train/X_train.txt")
-        trainY <- readUCIFile( "UCI HAR Dataset/train/y_train.txt")
+        trainX <- read.table( "./train/X_train.txt", sep = "")
+        trainY <- read.table( "./train/y_train.txt", sep = "")
         
         message( "Loading the test dataset...")
         
         # Read test data set - activity observations and activity labels
-        testX <- readUCIFile( "UCI HAR Dataset/test/X_test.txt")
-        testY <- readUCIFile( "UCI HAR Dataset/test/y_test.txt")
+        testX <- read.table( "./test/X_test.txt", sep = "")
+        testY <- read.table( "./test/y_test.txt", sep = "")
         
         message( "Loading other data files...")
         
         # Read the subject ids for both train and test data set
-        trainSubject <- readUCIFile( "UCI HAR Dataset/train/subject_train.txt")
-        testSubject <- readUCIFile( "UCI HAR Dataset/test/subject_test.txt")
+        trainSubject <- read.table( "./train/subject_train.txt", sep = "")
+        testSubject <- read.table( "./test/subject_test.txt", sep = "")
         
         # Read the features list and activity lables 
-        colnamesX <- readUCIFile( "UCI HAR Dataset/features.txt")
-        activityLabels <- readUCIFile( "UCI HAR Dataset/activity_labels.txt")        
+        colnamesX <- read.table( "./features.txt", sep = "")
+        activityLabels <- read.table( "./activity_labels.txt", sep = "")        
         
         # naming the columns in train and test subjects file as "subjectid"
         colnames( trainSubject ) <- c( "subjectid" )
